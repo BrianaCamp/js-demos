@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>official nsa webpage</title>
+    <style>
+      body {
+        color: #114471;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        background-image: url(http://static.prisonplanet.com/p/images/august2013/160813nsa.jpg);
+        background-size: 150px 150px;
+        font-family: monospace;
+      }
+
+      .main {
+        margin-top: 200px;
+        background-color: white;
+        padding: 50px;
+        max-width: 600px;
+        margin: 200px auto;
+      }
+
+      button {
+        background-color: lavender;
+        box-shadow: 0;
+        border-radius: 0;
+        border: 0;
+        color: black;
+        display: inline-block;
+        padding: 10px;
+        margin-left: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        vertical-align: top;
+      }
+
+      input {
+        border: 2px solid black;
+        display: inline-block;
+        padding: 5px;
+        min-width: 300px;
+        font-size: 16px;
+      }
+
+      input:focus {
+        outline: 0;
+      }
+
+      .cia__image {
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+      }
+
+      p {
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main">
+      <h1>Who ya lookin for?</h1>
+      <input type="text" class="input__name"><button>Search!</button>
+      <p></p>
+    </main>
+
+
+
+  <script>
+    var nameField = document.querySelector('.input__name');
+    var searchBtn = document.querySelector('button');
+    var namesArray = [
+      'bedrich',
+      'joey',
+      'jake',
+      'blakeob',
+      'bri'
+    ];
+
+    // take value from input and check against array
+    function checkName() {
+      var nameValue = nameField.value;
+      var nameMessage = document.querySelector('p');
+
+      //loop through the name array and see if they match the input value
+      for(var i = 0; i < namesArray.length; i++) {
+        var index = namesArray[i];
+        var checkStringOutput = index.indexOf(nameValue);
+
+        if(checkStringOutput !== -1) {
+          nameMessage.textContent = 'omg you got a name! go stalk them!';
+          return;
+        } else {
+          nameMessage.textContent = 'that person dead.';
+        }
+      }
+    }
+
+    searchBtn.addEventListener('click', checkName);
+
+  </script>
+  </body>
+</html>
