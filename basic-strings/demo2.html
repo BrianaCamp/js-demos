@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>hackers terminal</title>
+        <style>
+        @import url('https://fonts.googleapis.com/css?family=VT323');
+        html {
+            font-family: 'VT323', monospace;
+            background-color: black;
+            color: white;
+            font-size: 16px;
+        }
+            .intro {
+                background-image: url(images/hackers-intro.jpg);
+                height: 100vh;
+                width: 100%;
+                background-size: 30% auto;
+                position: relative;
+                z-index: 1;
+            }
+
+            .intro::before {
+                background: linear-gradient(to top, #02821e, transparent);
+                content: '';
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            .intro__text {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: white;
+                font-size: 30px;
+            }
+
+            .cta-text {
+                display: inline-block;
+                vertical-align: top;
+                line-height: 60px;
+                margin: 0;
+            }
+
+            .cta-button {
+                border: 0;
+                text-decoration: underline;
+                display: inline-block;
+                cursor: pointer;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            @keyframes background-animation {
+                0% {
+                    background-position: 0;
+                }
+                100% {
+                    background-position: 0 500px;
+                }
+            }
+
+            @keyframes blink {
+                0% {
+                    color: black;
+                }
+                50% {
+                    color: lime;
+                }
+                100% {
+                    color: lime;
+                }
+            }
+            .cta-button__background {
+                position: relative;
+                height: 60px;
+                width: 80px;
+                transform: translateY(0%);
+                background-repeat: repeat-y;
+                background-position: 0 0;
+                background-size: 240px;
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            .cta-button__background:hover {
+                animation: background-animation 4s infinite linear;
+                color: gold;
+                transition: color .1s ease-in-out;
+                background-image: url(images/money-background.png);
+            }
+
+            .hack-instructions {
+                font-size: 28px;
+                color: #12e612;
+                padding: 50px;
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: black;
+                z-index: 2;
+            }
+
+            .hack-instructions.show {
+                display: block;
+            }
+
+            .hack {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: black;
+                z-index: 3;
+            }
+
+            .hack.show {
+                display: block;
+            }
+
+            .computer {
+                background-image: url(images/hackers-computer.jpg);
+                background-size: 100% auto;
+                background-position: 50% 50%;
+                width: 100%;
+                height: 100vh;
+                position: relative;
+            }
+
+            .computer__text {
+                position: absolute;
+                left: 29.5%;
+                top: 47%;
+                color: lime;
+                transform: skewX(-26deg);
+                font-size: 30px;
+            }
+
+            .computer__button {
+                position: absolute;
+                left: 50%;
+                top: 63%;
+            }
+
+            .database__button {
+                position: absolute;
+                left: 40%;
+                top: 63%;
+            }
+
+            @keyframes zoom-text {
+                0% {
+                    /*font-size: 10px;*/
+                    opacity: 0;
+                    transform: scale(0);
+                }
+                50% {
+                    /*font-size: 300px;*/
+                    opacity: 1;
+                    transform: scale(40);
+                }
+                100% {
+                    /*font-size: 10px;*/
+                    opacity: 0;
+                    transform: scale(0);
+                }
+            }
+
+            .credit-card {
+                transform: scale(1);
+                position: absolute;
+                top: 30%;
+                left: 50%;
+                transform-origin: center;
+                opacity: 0;
+                color: gold;
+            }
+
+            .credit-card.clicked {
+                animation: zoom-text 1.2s ease-out;
+                opacity: 1;
+            }
+
+            .instructions__button {
+                animation: blink .65s infinite alternate-reverse cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <section class="intro">
+                <div class="intro__text">
+                    <h1>how did these guys get so cool?</h1>
+                    <h2>easy, stole credit card numbers.</h2>
+                    <h3 class="cta-text">wanna be rich? smash this</h3>
+                    <div class="cta-button__background">
+                        <a class="cta-button">button</a>
+                    </div>
+                </div>
+            </section>
+            <section class="hack-instructions">
+                <p>ok so you wanna be rich AND cool? we'll have to see about that. First, you need to push buttons and then we'll see how cool and rich you get.</p>
+                <p>your objective is get these strings we got from jcpenny's database. We have the customer's last name and their credit card numbers but we just need to know what company the credit card belongs to. Our choices are visa, discover, mastercard, and amex. if you screw this up, we will *all* go to jail. </p>
+                <p>all you need to do is first click the database button to get the string, and click hack to to get the company</p>
+                <a href="" class="instructions__button">continue?</a>
+            </section>
+            <section class="hack">
+                <div class="computer">
+                    <div class="computer__text">
+                        <p class="database__text"></p>
+                    </div>
+                    <button class="database__button">database</button>
+                    <button class="computer__button">hack</button>
+                    <p class="credit-card"></p>
+                </div>
+            </section>
+        </main>
+        <script>
+        //selectors
+        var ctaButton = document.querySelector('.cta-button');
+        var instructions = document.querySelector('.hack-instructions');
+        var instructionsButton = document.querySelector('.instructions__button');
+        var hackButton = document.querySelector('.computer__button');
+        var dbButton = document.querySelector('.database__button');
+        var databaseMessage = document.querySelector('.database__text');
+        var message = document.querySelector('.credit-card');
+
+        //jcpenny database
+        var creditCards = [
+            "plebby; 43421234567890",
+            "bumblebee; 324112345678",
+            "boppity; 63781234567890",
+            "lummpy; 53781234567890",
+            "bittybetty; 13781234567890"
+        ];
+
+        //when hack button is clicked, count the clicker, run checkCreditCard function
+        var clicker = 0;
+        function printString() {
+            var str = creditCards[clicker];
+            var strMessage = document.querySelector('.database__text');
+            strMessage.textContent = '';
+            strMessage.textContent = str;
+        }
+
+        function checkCreditCard() {
+            if (clicker <= creditCards.length -1) {
+                var index = creditCards[clicker];
+                var refPoint = index.indexOf(';');
+                var slicedStr = index.slice(refPoint + 2);
+                var firstNum = slicedStr.slice(0, 1);
+                var visa = '4';
+                var amex = '3';
+                var discover = '6';
+                var mastercard = '5';
+
+                //reset message content
+                message.textContent = '';
+
+                if(firstNum == visa) {
+                    message.textContent = 'visa';
+                    message.classList.add('clicked');
+                } else if(firstNum == amex) {
+                    message.textContent ='amex';
+                    message.classList.add('clicked');
+                } else if(firstNum == discover) {
+                    message.textContent = 'discover';
+                    message.classList.add('clicked');
+                } else if (firstNum == mastercard) {
+                    message.textContent = 'mastercard';
+                    message.classList.add('clicked');
+                } else {
+                    message.textContent = 'FAKE!';
+                    message.classList.add('clicked');
+                }
+
+                clicker++;
+
+            } else {
+                message.textContent = 'END!';
+                message.classList.add('clicked');
+                return;
+            }
+            window.setTimeout(function() {
+                message.classList.remove('clicked');
+            }, 1000);
+        }
+
+        ctaButton.addEventListener('click', function() {
+            document.querySelector('.hack-instructions').classList.add('show');
+        });
+
+        instructionsButton.addEventListener('click', function(evt) {
+            evt.preventDefault();
+            document.querySelector('.hack').classList.add('show');
+        });
+
+        hackButton.addEventListener('click', checkCreditCard);
+        dbButton.addEventListener('click', printString);
+        </script>
+    </body>
+</html>

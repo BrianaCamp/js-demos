@@ -84,6 +84,7 @@
     // take value from input and check against array
     function checkName() {
       var nameValue = nameField.value;
+      nameValue = nameValue.toLowerCase();
       var nameMessage = document.querySelector('p');
 
       //loop through the name array and see if they match the input value
